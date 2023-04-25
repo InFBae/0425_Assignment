@@ -213,6 +213,109 @@ namespace DataStructure
             root = null;
         }
 
+        public void Refactoring()
+        {
+            Refactoring(root);
+        }
+        private void Refactoring(Node node)
+        {
+            Node current = node;
+
+            CheckBF(current);
+
+            if (current.HasLeftChild)
+            {
+                current = current.left;
+                Refactoring(current);
+            }
+            if (current.HasRightChild)
+            {
+                current = current.right;
+                Refactoring(current);
+            }
+            
+        }
+        private void CheckBF(Node node)
+        {
+            if (node.BF > 1)
+            {
+                RightRotation(node);
+                return;
+            }
+            else if (node.BF < -1)
+            {
+                LeftRotation(node);
+                return;
+            }
+        }
+        private void RightRotation(Node node)
+        {
+            if (node.IsRootNode)
+            {
+                Node target = node.left;
+                Node temp = target.right;
+
+                target.right = node;
+                target.parent = node.parent;
+                node.parent = target;
+                node.left = temp;
+                root = target;
+            }
+            else
+            {
+                if(node.IsLeftChild) 
+                {
+                    Node target = node.left;
+                    Node temp = target.right;
+
+                    target.right = node;
+                    target.parent = node.parent;
+                    node.parent = target;
+                    node.left = temp;
+                }
+                else if(node.IsRightChild)
+                {
+                    Node target = node.left;
+                    Node temp = target.right;
+
+                    target.right = node;
+                    target.parent = node.parent;
+                    node.parent = target;
+                    node.left = temp;
+                }
+            }
+        }
+        private void LeftRotation(Node node)
+        {
+            if (node.IsRootNode)
+            {
+                Node target = node.right;
+                Node temp = target.left;
+
+                target.left = node;
+                node.parent = target;
+                node.right = temp;
+                target.parent = null;
+                root = target;
+            }
+            else
+            {
+                if (node.IsLeftChild)
+                {
+                    Node target = node.right
+                    Node temp = node.right.left;
+                    node.right.left = node;
+                    node.parent = node.left;
+                    node.left.parent = node.parent;
+                    node.parent.left = node.left;
+                }
+                else if (node.IsRightChild)
+                {
+
+                }
+            }
+        }
+
         public class Node
         {
             internal T value;

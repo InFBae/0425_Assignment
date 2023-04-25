@@ -23,6 +23,7 @@ namespace _0425_Assignment
             bst.Remove(6);
             bst.Print();
 
+            bst.Refactoring();
         }
     }
 }
