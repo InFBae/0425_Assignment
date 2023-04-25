@@ -1,0 +1,36 @@
+Binary Search Tree는 효율적인 탐색을 위해 고안된 binary tree의 일종입니다. Binary Search Tree는 binary tree에 몇 가지 규칙을 추가하여 특정 데이터를 쉽게 찾을 수 있게 만듭니다. 먼저, 각 Node에 저장된 key는 유일하고, 부모 Node의 key를 기준으로 왼쪽 자식 Node는 더 작은 key 값을 가지고 오른쪽 자식 Node는 더 큰 key 값을 가집니다. 그리고 재귀적으로 Sub Tree 또한 Binary Search Tree입니다.
+
+Binary Search Tree는 평균적으로 삽입, 삭제, 탐색에 O(log n)의 시간복잡도를 가집니다. log n은 Tree의 height입니다. 하지만 최악의 경우 O(n)의 시간복잡도를 가지는데, 이는 한 쪽으로만 자식 Node가 추가되는 경우에 Binary Search Tree가 편향 트리가 되기 때문입니다.
+
+추가로, 이를 해결하는 Rebalancing 기법이 있고, Red-black Tree가 대표적인 예시입니다.
+
+힙은 상하 관계를 보장하고 이진탐색트리는 좌우 관계를 보장한다
+
+
+이진 탐색트리의 균형이 무너졌을 때의 대처
+자가 균형이 가능한 레드블랙트리나 AVL트리를 사용한다.
+
+
+// 추가 레드블랙트리
+Red Black Tree는 자가 균형 Binary Search Tree의 일종으로, 각 노드를 빨간색 혹은 검은색으로 맵핑하여 균형을 유지합니다. 이때, 항상 root node와 모든 leaf node는 검은색이며, 빨간색 노드의 자식은 항상 검은색입니다. 그리고 모든 leaf node에서 black depth, 즉 leaf node에서 root node로 가는 경로에서 만나는 검은색 node의 개수는 모두 같습니다. 이 규칙을 통해, Red Black Tree에서는 탐색과 삽입, 삭제에서 O(log n)의 시간복잡도로 연산을 수행할 수 있습니다.
+
+Restructuring
+1. 새로운 노드(N), 부모 노드(P), 조상 노드(G)를 오름차순으로 정렬한다.
+2. 셋 중 중간값을 부모로 만들고 나머지 둘을 자식으로 만든다.
+3. 새로 부모가 된 노드를 검은색으로 만들고 나머지 자식들을 빨간색으로 만든다.
+
+Recoloring
+1. 새로운 노드(N)의 부모(P)와 삼촌(U)을 검은색으로 바꾸고 조상(G)을 빨간색으로 바꾼다.
+1-1. 조상(G)이 루트 노드라면 검은색으로 바꾼다.
+1-2. 조상(G)을 빨간색으로 바꿨을 때 또다시 Double Red가 발생한다면 또다시 Restructuring 혹은 Recoloring을 진행해서 Double Red 문제가 발생하지 않을 때까지 반복한다.
+
+//추가 AVL 트리
+이진 탐색 트리의 속성을 가진다.
+왼쪽, 오른쪽 서브 트리의 높이 차이가 최대 1이다.
+높이 차이가 1보다 커지면 회전(Rotation)을 통해 균형을 맞춰 높이 차이를 줄인다.
+삽입, 검색, 삭제의 시간 복잡도가 O(log N)이다. (N : 노드의 개수)
+
+BF(K) = K의 왼쪽 서브트리의 높이 - K의 오른쪽 서브트리의 높이
+BF가 -1~1의 범위를 벗어나면 재조정
+2라면 좌회전
+-2라며 우회전
